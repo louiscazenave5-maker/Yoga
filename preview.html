@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beausoleil Yoga Caroline</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #fff9f0;
+      --sand: #f4dfc2;
+      --sage: #9caf88;
+      --sage-dark: #516444;
+      --terracotta: #c77b55;
+      --brown: #3b2b23;
+      --white: #ffffff;
+      --shadow: 0 24px 70px rgba(79, 57, 38, .15);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: Inter, sans-serif;
+      color: var(--brown);
+      background: var(--cream);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .blob {
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(199,123,85,.24), transparent 68%);
+      top: -120px;
+      right: -120px;
+      z-index: -1;
+    }
+
+    .blob.two {
+      background: radial-gradient(circle, rgba(156,175,136,.28), transparent 70%);
+      top: 55%;
+      left: -180px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: rgba(255, 249, 240, .78);
+      border-bottom: 1px solid rgba(59, 43, 35, .08);
+    }
+
+    nav {
+      max-width: 1180px;
+      margin: auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-family: Fraunces, serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      font-size: .95rem;
+      font-weight: 600;
+      color: rgba(59, 43, 35, .72);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 20px;
+      border-radius: 999px;
+      background: var(--sage-dark);
+      color: white;
+      font-weight: 700;
+      box-shadow: 0 12px 30px rgba(81, 100, 68, .22);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(81, 100, 68, .28); }
+    .btn.secondary { background: var(--white); color: var(--sage-dark); box-shadow: none; border: 1px solid rgba(81,100,68,.18); }
+
+    .hero {
+      max-width: 1180px;
+      margin: auto;
+      padding: 86px 24px 70px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(156, 175, 136, .18);
+      color: var(--sage-dark);
+      font-weight: 700;
+      font-size: .88rem;
+      margin-bottom: 22px;
+    }
+
+    h1, h2, h3 { font-family: Fraunces, serif; line-height: 1.05; }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 6.8rem);
+      letter-spacing: -.06em;
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      max-width: 650px;
+      color: rgba(59, 43, 35, .76);
+      margin-bottom: 28px;
+    }
+
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .hero-card {
+      position: relative;
+      min-height: 560px;
+      border-radius: 46px;
+      overflow: hidden;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,.2), rgba(255,255,255,.02)),
+        url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80') center/cover;
+      box-shadow: var(--shadow);
+    }
+
+    .floating-card {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      padding: 22px;
+      border-radius: 28px;
+      background: rgba(255, 249, 240, .88);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 12px 38px rgba(59,43,35,.15);
+    }
+
+    .floating-card strong { display: block; font-size: 1.05rem; margin-bottom: 5px; }
+
+    section { max-width: 1180px; margin: auto; padding: 72px 24px; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 28px;
+      margin-bottom: 32px;
+    }
+
+    h2 { font-size: clamp(2.2rem, 4vw, 4rem); letter-spacing: -.04em; }
+
+    .muted { color: rgba(59, 43, 35, .68); max-width: 560px; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 30px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.65);
+      border: 1px solid rgba(59,43,35,.08);
+      box-shadow: 0 10px 40px rgba(79,57,38,.07);
+    }
+
+    .icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 18px;
+      background: rgba(199,123,85,.14);
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .card h3 { font-size: 1.45rem; margin-bottom: 10px; }
+
+    .schedule {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .schedule-box {
+      border-radius: 36px;
+      padding: 36px;
+      background: var(--sage-dark);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .schedule-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(59,43,35,.08);
+      font-weight: 700;
+    }
+
+    .row span:last-child { color: var(--terracotta); text-align: right; }
+
+    .prices {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .price {
+      padding: 32px;
+      border-radius: 32px;
+      background: white;
+      border: 1px solid rgba(59,43,35,.08);
+    }
+
+    .price strong {
+      display: block;
+      font-family: Fraunces, serif;
+      font-size: 2.3rem;
+      margin: 14px 0;
+      color: var(--sage-dark);
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 32px;
+      align-items: center;
+      background: rgba(244,223,194,.46);
+      border-radius: 46px;
+      padding: 40px;
+    }
+
+    .about img {
+      width: 100%;
+      height: 460px;
+      object-fit: cover;
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact {
+      text-align: center;
+      border-radius: 46px;
+      background: linear-gradient(135deg, var(--sage-dark), #82986e);
+      color: white;
+      padding: 70px 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact h2 { margin-bottom: 18px; }
+    .contact p { color: rgba(255,255,255,.82); margin-bottom: 26px; }
+
+    footer {
+      padding: 34px 24px;
+      text-align: center;
+      color: rgba(59,43,35,.62);
+      font-size: .92rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero, .schedule, .about { grid-template-columns: 1fr; }
+      .hero { padding-top: 54px; }
+      .hero-card { min-height: 430px; }
+      .cards, .prices { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .section-head { display: block; }
+      .section-head .muted { margin-top: 14px; }
+      .about { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob"></div>
+  <div class="blob two"></div>
+
+  <header>
+    <nav>
+      <a href="#" class="logo">Beausoleil Yoga</a>
+      <div class="nav-links">
+        <a href="#bienfaits">Bienfaits</a>
+        <a href="#horaires">Horaires</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="btn" href="tel:+33749505589">Réserver</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <span class="tag">Hatha Yoga à Gradignan</span>
+        <h1>Respirer. S’ancrer. Rayonner.</h1>
+        <p>Cours de Hatha Yoga pour débutants ou pratiquants confirmés, en petit groupe ou en accompagnement individuel, dans une ambiance douce et bienveillante.</p>
+        <div class="hero-actions">
+          <a class="btn" href="mailto:beausoleilyoga.gradignan@gmail.com">Demander un renseignement</a>
+          <a class="btn secondary" href="#horaires">Voir les horaires</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="floating-card">
+          <strong>Reprise des cours le 8 septembre</strong>
+          <p>Réservation conseillée par téléphone ou par mail.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="bienfaits">
+      <div class="section-head">
+        <h2>Un moment pour revenir à soi</h2>
+        <p class="muted">Le yoga aide à prendre soin du corps, calmer le mental et retrouver un meilleur équilibre au quotidien.</p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <div class="icon">🌿</div>
+          <h3>Souplesse & force</h3>
+          <p>Améliorer sa mobilité et renforcer le corps progressivement, toujours dans le respect de ses limites.</p>
+        </article>
+        <article class="card">
+          <div class="icon">☀️</div>
+          <h3>Respiration</h3>
+          <p>Prendre conscience du souffle pour apaiser les tensions, se concentrer et se reconnecter au présent.</p>
+        </article>
+        <article class="card">
+          <div class="icon">🧘‍♀️</div>
+          <h3>Équilibre intérieur</h3>
+          <p>S’accorder une vraie pause, restaurer son énergie et savourer simplement l’instant présent.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="horaires">
+      <div class="schedule">
+        <div class="schedule-box">
+          <span class="tag" style="background:rgba(255,255,255,.14);color:white">Cours de 1h15</span>
+          <h2>Horaires des cours</h2>
+          <p style="margin-top:18px;color:rgba(255,255,255,.82)">Les cours ont lieu au 11 rue de Chaut à Gradignan. Les places sont limitées afin de préserver une pratique confortable et personnalisée.</p>
+        </div>
+        <div class="schedule-list">
+          <div class="row"><span>Lundi</span><span>12h00 – 13h15</span></div>
+          <div class="row"><span>Mardi</span><span>9h15 – 10h30</span></div>
+          <div class="row"><span>Mercredi</span><span>9h15 – 10h30<br>18h30 – 19h45</span></div>
+          <div class="row"><span>Jeudi</span><span>9h15 – 10h30<br>18h30 – 19h45</span></div>
+          <div class="row"><span>Vendredi</span><span>9h15 – 10h30</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tarifs">
+      <div class="section-head">
+        <h2>Tarifs simples</h2>
+        <p class="muted">Choisissez la formule qui correspond le mieux à votre rythme de pratique.</p>
+      </div>
+
+      <div class="prices">
+        <article class="price">
+          <p>Séance collective</p>
+          <strong>15€</strong>
+          <p>À l’unité, idéal pour découvrir ou pratiquer ponctuellement.</p>
+        </article>
+        <article class="price">
+          <p>Forfait 10 cours</p>
+          <strong>130€</strong>
+          <p>Pour installer une pratique régulière avec plus de liberté.</p>
+        </article>
+        <article class="price">
+          <p>Cours particulier</p>
+          <strong>70€</strong>
+          <p>Accompagnement personnalisé, à la demande.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="about">
+        <img src="https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=1000&q=80" alt="Pratique de yoga douce">
+        <div>
+          <span class="tag">Avec Caroline Cazenave</span>
+          <h2>Une pratique bienveillante, accessible et progressive.</h2>
+          <p class="muted" style="margin-top:20px">Professeur diplômée de l’ENPY, Caroline vous accompagne que vous souhaitiez découvrir le yoga ou poursuivre votre chemin. Chaque séance invite à écouter le corps, respirer pleinement et cultiver une énergie plus sereine.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact">
+        <h2>Envie de réserver un cours ?</h2>
+        <p>Contactez Caroline pour plus de renseignements ou pour réserver votre place.</p>
+        <div class="hero-actions" style="justify-content:center">
+          <a class="btn secondary" href="tel:+33749505589">07 49 50 55 89</a>
+          <a class="btn secondary" href="mailto:beausoleilyoga.gradignan@gmail.com">Envoyer un mail</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Beausoleil Yoga Caroline — 11 rue de Chaut, Gradignan
+  </footer>
+</body>
+</html>
